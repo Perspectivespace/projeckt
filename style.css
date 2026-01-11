@@ -1,0 +1,1129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.app {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Панель управления */
+.control-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #475569;
+}
+
+.user-input h3, .resources-display h3 {
+    color: #60a5fa;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+/* Стили для ползунков */
+.slider-group {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    border: 1px solid #475569;
+}
+
+.slider-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.slider-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #60a5fa;
+    min-width: 60px;
+    text-align: right;
+}
+
+.slider-container {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.slider-container input[type="range"] {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    border-radius: 4px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #60a5fa;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    background: #3b82f6;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.number-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.number-input:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn.reset {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.btn.optimize {
+    background: linear-gradient(45deg, #10b981, #059669);
+    color: white;
+}
+
+.btn.craft-btn {
+    background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn.small {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+}
+
+.btn.buy-btn {
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+    color: white;
+    flex: 1;
+}
+
+.btn.auto-btn {
+    background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+    color: white;
+    flex: 1;
+}
+
+.btn.buy-btn:hover {
+    background: linear-gradient(45deg, #d97706, #b45309);
+}
+
+.btn.auto-btn:hover {
+    background: linear-gradient(45deg, #7c3aed, #6d28d9);
+}
+
+.btn.cancel-btn {
+    background: #64748b;
+    color: white;
+}
+
+.btn.confirm-btn {
+    background: linear-gradient(45deg, #10b981, #059669);
+    color: white;
+}
+
+.btn.confirm-btn:disabled {
+    background: #475569;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #60a5fa;
+}
+
+.stat-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+/* Основной контент */
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 30px;
+}
+
+.pets-section {
+    grid-column: 1;
+    grid-row: 1;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #475569;
+}
+
+.crafting-section {
+    grid-column: 2;
+    grid-row: 1;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #475569;
+}
+
+.upgrade-section {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #475569;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header h2 {
+    color: #60a5fa;
+    font-size: 1.8rem;
+}
+
+/* Стили для управления питомцами */
+.pets-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-pet-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #475569;
+    min-width: 200px;
+}
+
+.level-input, .xp-input {
+    width: 80px;
+    padding: 8px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid #475569;
+    border-radius: 6px;
+    color: white;
+    text-align: center;
+}
+
+.add-btn {
+    background: linear-gradient(45deg, #10b981, #059669);
+    padding: 8px 15px;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.pets-count {
+    font-size: 1.1rem;
+    color: #60a5fa;
+    font-weight: bold;
+    padding: 8px 15px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    border: 1px solid #475569;
+}
+
+.rarity-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: #475569;
+    border: none;
+    border-radius: 20px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-btn.active {
+    background: #60a5fa;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+/* Сетка питомцев */
+.pets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.pet-card {
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.pet-card.selected {
+    box-shadow: 0 0 0 3px #60a5fa;
+}
+
+.pet-card.common { border-color: #6b7280; }
+.pet-card.rare { border-color: #3b82f6; }
+.pet-card.epic { border-color: #8b5cf6; }
+.pet-card.legendary { border-color: #f59e0b; }
+.pet-card.immortal { border-color: #ef4444; }
+
+/* Заголовок карточки с изображением */
+.pet-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.pet-card-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid;
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+}
+
+.pet-card-image.common { border-color: #6b7280; }
+.pet-card-image.rare { border-color: #3b82f6; }
+.pet-card-image.epic { border-color: #8b5cf6; }
+.pet-card-image.legendary { border-color: #f59e0b; }
+.pet-card-image.immortal { border-color: #ef4444; }
+
+.pet-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-card-image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.pet-card-info {
+    flex-grow: 1;
+}
+
+.pet-card-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.pet-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.pet-rarity {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.pet-rarity.common { background: #6b7280; color: white; }
+.pet-rarity.rare { background: #3b82f6; color: white; }
+.pet-rarity.epic { background: #8b5cf6; color: white; }
+.pet-rarity.legendary { background: #f59e0b; color: #000; }
+.pet-rarity.immortal { background: #ef4444; color: white; }
+
+.pet-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(30, 41, 59, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-card .label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+.stat-card .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+.upgrade-controls {
+    margin-top: 20px;
+}
+
+.upgrade-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.upgrade-btn:hover:not(:disabled) {
+    background: linear-gradient(45deg, #059669, #047857);
+    transform: scale(1.02);
+}
+
+.upgrade-btn:disabled {
+    background: #64748b;
+    cursor: not-allowed;
+}
+
+.xp-progress {
+    margin-top: 15px;
+}
+
+.xp-bar {
+    height: 6px;
+    background: #475569;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    border-radius: 3px;
+    transition: width 0.3s;
+}
+
+.xp-text {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.select-btn {
+    width: 100%;
+    padding: 8px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.3s;
+}
+
+.select-btn:hover {
+    background: #2563eb;
+}
+
+.delete-pet-btn {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.delete-pet-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    transform: scale(1.1);
+}
+
+/* Панель крафта */
+.crafting-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.crafting-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.crafting-info li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.crafting-info li:before {
+    content: "•";
+    color: #60a5fa;
+    position: absolute;
+    left: 0;
+}
+
+.crafting-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.crafting-selected-pets {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 120px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    border: 2px dashed #475569;
+    margin-bottom: 20px;
+}
+
+.crafting-selected-pet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+
+.crafting-selected-pet-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 5px;
+    border: 2px solid;
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+}
+
+.crafting-selected-pet-image.common { border-color: #6b7280; }
+.crafting-selected-pet-image.rare { border-color: #3b82f6; }
+.crafting-selected-pet-image.epic { border-color: #8b5cf6; }
+.crafting-selected-pet-image.legendary { border-color: #f59e0b; }
+.crafting-selected-pet-image.immortal { border-color: #ef4444; }
+
+.crafting-selected-pet-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.crafting-selected-pet-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.crafting-selected-pet-name {
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #94a3b8;
+}
+
+.crafting-result {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.crafting-analysis {
+    grid-column: 1 / span 2;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.analysis-item {
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid;
+}
+
+.analysis-item.recommended {
+    background: rgba(34, 197, 94, 0.1);
+    border-left-color: #22c55e;
+}
+
+.analysis-item.not-recommended {
+    background: rgba(239, 68, 68, 0.1);
+    border-left-color: #ef4444;
+}
+
+.positive { color: #22c55e; }
+.negative { color: #ef4444; }
+
+/* Стили для таблицы XP */
+.xp-table-wrapper {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #475569;
+}
+
+.xp-table-header {
+    background: rgba(59, 130, 246, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.xp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.xp-table th {
+    padding: 15px 12px;
+    text-align: center;
+    color: #60a5fa;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #475569;
+}
+
+.xp-table-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.xp-table-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.xp-table-body::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+}
+
+.xp-table-body::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+}
+
+.xp-table-body::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+.xp-table-body .xp-row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.xp-table-body .xp-cell {
+    display: table-cell;
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+.xp-table-body .xp-row:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.xp-table-body .xp-row:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* Калькулятор улучшений */
+.upgrade-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.scroll-calculator {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.scroll-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.scroll-input input {
+    padding: 8px;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    color: white;
+    width: 100px;
+}
+
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.recommendation-item {
+    background: rgba(15, 23, 42, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #60a5fa;
+}
+
+.recommendation-item h5 {
+    color: #60a5fa;
+    margin-bottom: 10px;
+}
+
+.scroll-calculation {
+    background: rgba(15, 23, 42, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Модальное окно выбора питомцев */
+.pet-selection-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.pet-selection-content {
+    background: #1e293b;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Стили для модального окна с множественным выбором */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.modal-header h3 {
+    color: #60a5fa;
+    font-size: 1.8rem;
+}
+
+.selection-counter {
+    background: rgba(96, 165, 250, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+.selection-counter span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.pet-selection-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.pet-filter-btn {
+    padding: 8px 16px;
+    background: #475569;
+    border: none;
+    border-radius: 20px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.pet-filter-btn.active {
+    background: #60a5fa;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+.modal-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Улучшенные стили для элементов выбора */
+.pet-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* Стили для скролла */
+.pet-selection-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.pet-selection-grid::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 4px;
+}
+
+.pet-selection-grid::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+}
+
+.pet-selection-grid::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+.pet-selection-item {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.pet-selection-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pet-selection-item.selected {
+    border-color: #60a5fa;
+    background: rgba(96, 165, 250, 0.1);
+    position: relative;
+}
+
+.pet-selection-item.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #60a5fa;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.pet-selection-item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    border: 3px solid;
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+}
+
+.pet-selection-item-image.common { border-color: #6b7280; }
+.pet-selection-item-image.rare { border-color: #3b82f6; }
+.pet-selection-item-image.epic { border-color: #8b5cf6; }
+.pet-selection-item-image.legendary { border-color: #f59e0b; }
+.pet-selection-item-image.immortal { border-color: #ef4444; }
+
+.pet-selection-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-selection-item-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.pet-selection-item-name {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: 600;
+}
+
+.pet-selection-item-rarity {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.pet-selection-item-rarity.common { background: #6b7280; color: white; }
+.pet-selection-item-rarity.rare { background: #3b82f6; color: white; }
+.pet-selection-item-rarity.epic { background: #8b5cf6; color: white; }
+.pet-selection-item-rarity.legendary { background: #f59e0b; color: #000; }
+.pet-selection-item-rarity.immortal { background: #ef4444; color: white; }
+
+/* Стили для количества в кнопке подтверждения */
+#confirm-pet-selection span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    .pets-section { grid-column: 1; grid-row: 1; }
+    .crafting-section { grid-column: 1; grid-row: 2; }
+    .upgrade-section { grid-column: 1; grid-row: 3; }
+    
+    .crafting-panel,
+    .upgrade-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .control-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .pets-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .rarity-filter {
+        justify-content: center;
+    }
+    
+    .pets-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .add-pet-panel {
+        width: 100%;
+    }
+    
+    .pet-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    
+    .crafting-actions {
+        flex-direction: column;
+    }
+    
+    .modal-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .selection-counter {
+        align-self: center;
+    }
+    
+    .pet-selection-item-image {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .pet-selection-item-fallback {
+        font-size: 24px;
+    }
+    
+    .pet-selection-item-name {
+        font-size: 0.9rem;
+    }
+}

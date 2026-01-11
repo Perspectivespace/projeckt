@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор крафта питомцев</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Панель управления -->
+        <div class="control-panel">
+            <div class="user-input">
+                <h3><i class="fas fa-cog"></i> Настройки калькулятора</h3>
+                
+                <div class="slider-group">
+                    <label for="gold-input">
+                        <i class="fas fa-coins"></i> Ваше золото: 
+                        <span class="slider-value" id="gold-value">100,000</span>
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="gold-slider" min="0" max="1000000" step="1000" value="100000">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>1M</span>
+                        </div>
+                    </div>
+                    <input type="number" id="gold-input" value="100000" min="0" class="number-input">
+                </div>
+                
+                <div class="slider-group">
+                    <label for="scroll1">
+                        <i class="fas fa-scroll"></i> Свитков 1 (500 XP):
+                        <span class="slider-value" id="scroll1-value">5</span>
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="scroll1-slider" min="0" max="50" step="1" value="5">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>50</span>
+                        </div>
+                    </div>
+                    <input type="number" id="scroll1" value="5" min="0" class="number-input">
+                </div>
+                
+                <div class="slider-group">
+                    <label for="scroll2">
+                        <i class="fas fa-scroll"></i> Свитков 2 (1000 XP):
+                        <span class="slider-value" id="scroll2-value">3</span>
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="scroll2-slider" min="0" max="50" step="1" value="3">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>50</span>
+                        </div>
+                    </div>
+                    <input type="number" id="scroll2" value="3" min="0" class="number-input">
+                </div>
+                
+                <div class="button-group">
+                    <button id="reset-btn" class="btn reset"><i class="fas fa-redo"></i> Сбросить</button>
+                    <button id="optimize-btn" class="btn optimize"><i class="fas fa-magic"></i> Оптимизировать</button>
+                </div>
+            </div>
+            
+            <div class="resources-display">
+                <h3><i class="fas fa-chart-line"></i> Статистика</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Всего золота:</span>
+                        <span id="total-gold" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Золота/час:</span>
+                        <span id="gold-per-hour" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Золота/день:</span>
+                        <span id="gold-per-day" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Всего питомцев:</span>
+                        <span id="total-pets" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Общая сила:</span>
+                        <span id="total-power" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Секция питомцев -->
+            <div class="pets-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-paw"></i> Ваши питомцы</h2>
+                    <div class="pets-controls">
+                        <div class="add-pet-panel">
+                            <button id="add-pet-btn" class="btn small add-btn">
+                                <i class="fas fa-plus"></i> Добавить питомца
+                            </button>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <input type="number" id="pet-level" min="1" max="34" value="1" placeholder="Уровень" class="level-input">
+                                <input type="number" id="pet-xp" min="0" value="0" placeholder="XP" class="xp-input">
+                            </div>
+                        </div>
+                        <div class="pets-count">
+                            <span id="pets-count">5</span> питомцев
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rarity-filter">
+                    <button class="filter-btn active" data-rarity="all"><i class="fas fa-star"></i> Все</button>
+                    <button class="filter-btn" data-rarity="common"><i class="fas fa-circle"></i> Обычные</button>
+                    <button class="filter-btn" data-rarity="rare"><i class="fas fa-gem"></i> Редкие</button>
+                    <button class="filter-btn" data-rarity="epic"><i class="fas fa-crown"></i> Эпические</button>
+                    <button class="filter-btn" data-rarity="legendary"><i class="fas fa-fire"></i> Легендарные</button>
+                    <button class="filter-btn" data-rarity="immortal"><i class="fas fa-skull-crossbones"></i> Бессмертные</button>
+                </div>
+                
+                <div class="pets-grid" id="pets-container">
+                    <!-- Питомцы будут здесь -->
+                </div>
+            </div>
+
+            <!-- Панель крафта -->
+            <div class="crafting-section">
+                <h3><i class="fas fa-hammer"></i> Калькулятор крафта</h3>
+                <div class="crafting-panel">
+                    <div class="crafting-info">
+                        <h4>Механика крафта:</h4>
+                        <ul>
+                            <li>3 одинаковых редкости → 1 случайный следующей редкости</li>
+                            <li>Уровень сбрасывается до 1</li>
+                            <li>Опыт и улучшения теряются</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="crafting-controls">
+                        <h4>Выберите питомцев для крафта:</h4>
+                        
+                        <div class="crafting-actions">
+                            <button id="buy-gaderion" class="btn buy-btn">
+                                <i class="fas fa-shopping-cart"></i> Купить Гадериона за 3,000 золота
+                            </button>
+                            <button id="auto-select" class="btn auto-btn">
+                                <i class="fas fa-robot"></i> Автовыбор для крафта
+                            </button>
+                        </div>
+                        
+                        <div id="selected-pets-container">
+                            <div class="crafting-selected-pets" id="selected-pets">
+                                <p>Выберите 3 питомца одинаковой редкости</p>
+                            </div>
+                        </div>
+                        
+                        <div class="crafting-result" id="crafting-result">
+                            <!-- Результат крафта будет здесь -->
+                        </div>
+                        
+                        <button id="craft-btn" class="btn craft-btn" disabled>
+                            <i class="fas fa-magic"></i> Скрафтить
+                        </button>
+                    </div>
+
+                    <div class="crafting-analysis">
+                        <h4>Анализ выгодности:</h4>
+                        <div id="crafting-analysis">
+                            <!-- Анализ крафта будет здесь -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Калькулятор улучшений -->
+            <div class="upgrade-section">
+                <h3><i class="fas fa-chart-bar"></i> Калькулятор улучшений</h3>
+                <div class="upgrade-panel">
+                    <div class="xp-calculator">
+                        <h4>Требуемый опыт по уровням:</h4>
+                        <div class="xp-table-wrapper">
+                            <div class="xp-table-header">
+                                <table class="xp-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30%">Уровень</th>
+                                            <th style="width: 35%">XP для след. уровня</th>
+                                            <th style="width: 35%">Суммарный XP</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="xp-table-body" id="xp-table-body">
+                                <!-- Строки таблицы будут здесь -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upgrade-calculator">
+                        <h4>Рекомендации по улучшению:</h4>
+                        <div id="upgrade-recommendations">
+                            <!-- Рекомендации будут здесь -->
+                        </div>
+                        <div class="scroll-calculator">
+                            <h4>Калькулятор свитков:</h4>
+                            <p>Свиток 1: 500 XP за 10,000 золота (20 золота/XP)</p>
+                            <p>Свиток 2: 1000 XP за 19,000 золота (19 золота/XP)</p>
+                            <div class="scroll-input">
+                                <label for="target-level">Целевой уровень:</label>
+                                <input type="number" id="target-level" min="1" max="34" value="10">
+                                <button id="calculate-scrolls" class="btn small">Рассчитать</button>
+                            </div>
+                            <div id="scrolls-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно выбора питомцев -->
+    <div class="pet-selection-modal" id="pet-selection-modal" style="display: none;">
+        <div class="pet-selection-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-paw"></i> Выберите питомцев</h3>
+                <div class="selection-counter" id="selection-counter">
+                    Выбрано: <span id="selected-count">0</span>
+                </div>
+            </div>
+            
+            <div class="pet-selection-filters">
+                <button class="pet-filter-btn active" data-filter="all">Все</button>
+                <button class="pet-filter-btn" data-filter="common">Обычные</button>
+                <button class="pet-filter-btn" data-filter="rare">Редкие</button>
+                <button class="pet-filter-btn" data-filter="epic">Эпические</button>
+                <button class="pet-filter-btn" data-filter="legendary">Легендарные</button>
+                <button class="pet-filter-btn" data-filter="immortal">Бессмертные</button>
+            </div>
+            
+            <div class="modal-controls">
+                <button id="select-all-btn" class="btn small">
+                    <i class="fas fa-check-double"></i> Выбрать все
+                </button>
+                <button id="deselect-all-btn" class="btn small">
+                    <i class="fas fa-times"></i> Сбросить выбор
+                </button>
+            </div>
+            
+            <div class="pet-selection-grid" id="pet-selection-grid">
+                <!-- Питомцы будут здесь -->
+            </div>
+            
+            <div class="modal-actions">
+                <button id="cancel-pet-selection" class="btn cancel-btn">
+                    <i class="fas fa-times"></i> Отмена
+                </button>
+                <button id="confirm-pet-selection" class="btn confirm-btn">
+                    <i class="fas fa-check"></i> Добавить выбранных (<span id="confirm-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="data.js"></script>
+    <script src="calculations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
